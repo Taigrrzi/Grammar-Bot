@@ -1,4 +1,4 @@
-document.getElementById('inner').innerHTML = '<button id="restartBtn" type="button">Start/Restart</button><div id="score"></div><canvas id="canvasBg" height="400px" width="400px" style="display:block;background:#FFF;margin-left:auto;margin-right:auto"></canvas><canvas id="canvasGame" height="400px" width="400px" style="display:block;margin-left:auto;margin-top:-400px;margin-right:auto"></canvas>';
+//document.getElementById('inner').innerHTML = '<button id="restart" type="button">Clear</button><div id="score"></div><canvas id="canvasBg" height="400px" width="400px" style="display:block;background:#FFF;margin-left:auto;margin-right:auto"></canvas><canvas id="canvasGame" height="400px" width="400px" style="display:block;margin-left:auto;margin-top:-400px;margin-right:auto"></canvas>';
 
 var canvasBg = document.getElementById("canvasBg");
 var ctxBg = canvasBg.getContext("2d");
@@ -10,6 +10,9 @@ var imgSpriteSheet = new Image();
 imgSpriteSheet.src = "spritesheet.png";
 imgSpriteSheet.addEventListener("load",init,false);
 */
+
+var nounList = new Array() ;
+var adjectiveList = new Array() ;
 
 function init() {
 	drawBg();
@@ -46,12 +49,30 @@ function clearBg() {
 	ctxBg.clearRect(0,0,canvasWidth,canvasHeight);
 }
 
-function Word(strings,part,usages) {
+function Noun(strings,usages,groups,opposites) {
 	this.strings = strings ;
-	this.part = part ;
 	this.usages = usages ;
+	this.groups = groups ;
+	this.opposites = opposites ;
 }
 
+function Adjective(strings,usages,groups,opposites) {
+	this.strings = strings ;
+	this.usages = usages ;
+	this.groups = groups ;
+	this.opposites = opposites ;
+}
+
+function FindNoun(string) {
+	for (var i = nounList.length - 1; i >= 0; i--) {
+		for (var j = nounList[i].strings.length - 1; j >= 0; j--) {
+			if (nounList[i].strings[j] == string) {
+				return nounList[i] ;
+			}
+		};
+	};
+	return "None Found" ;
+}
 
 /*Key Objects
 function Key() { //Object constructor
